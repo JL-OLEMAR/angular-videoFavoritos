@@ -19,7 +19,7 @@
           <a class="nav-link" [routerLink]="['/inicio']">Mis videos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Guardar favorito</a>
+          <a class="nav-link" [routerLink]="['/guardar-favorito']">Guardar favorito</a>
         </li>
       </ul>
 
@@ -39,7 +39,7 @@
             {{identity.name+' '+identity.surname}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Ajustes</a>
+            <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
             <a class="dropdown-item" [routerLink]="['/logout/1']">Salir</a>
           </div>
         </li>
