@@ -1,6 +1,76 @@
-<div class="col-md-12 mt-3" *ngIf="identity">
+<div class="col-md-12 mt-3 mb-3" *ngIf="identity">
   <h1>{{page_title}}</h1>
   <hr>
+
+  <div class="card-columns">
+    <article class="card w-100" *ngFor="let video of videos">
+      <div class="card-header">
+        <h3>{{video.title}}</h3>
+      </div>
+      <div class="car-body">
+        <!--Miniatura-->
+        <div class="video-image w-100" *ngIf="video.url">
+          <img src="{{getThumb(video.url)}}" class="w-100" />
+        </div>
+
+        <div class="video-image w-100" *ngIf="!video.url">
+          <img src="assets/images/video-default.jpg" class="w-100" />
+        </div>
+
+        <!--Botones-->
+        <div class="video-buttons mt-2 justify-content-center">
+          <a [routerLink]="['/video/' + video.id]" class="btn btn-success ml-2 mb-2">Leer</a>
+          <a [routerLink]="['/editar-favorito/' + video.id]" class="btn btn-warning ml-2 mb-2">Editar</a>
+
+          <!-- Button Delete to Open the Modal -->
+          <button type="button" class="btn btn-danger ml-2 mb-2" data-toggle="modal"
+            [attr.data-target]="'#borrar'+video.id">
+            Borrar
+          </button>
+
+          <!-- The Modal -->
+          <div class="modal" id="{{ 'borrar'+video.id }}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">¿Seguro que quieres borrar este video?</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  Vas a borrar para siempre el video: <strong>{{video.title}}</strong>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                  <a (click)="deleteVideo(video.id)" class="btn btn-danger" data-dismiss="modal">Borrar</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" [routerLink]="['/inicio', prev_page]">Anterior</a>
+      </li>
+      <li class="page-item" *ngFor="let num of number_pages">
+        <a class="page-link" [routerLink]="['/inicio', num]">{{num}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" [routerLink]="['/inicio', next_page]">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
 
 </div>
 
@@ -8,7 +78,8 @@
   <div class="jumbotron">
     <h1 class="display-4">Bienvenido a Videos Favoritos</h1>
     <p class="lead">
-      Registrate en la web para guardar tus videos favoritos de <a href="https://www.youtube.com/">Youtube</a> y poder verlos cuando quieras.
+      Registrate en la web para guardar tus videos favoritos de <a href="https://www.youtube.com/">Youtube</a> y poder
+      verlos cuando quieras.
     </p>
     <hr class="my-4">
     <p class="lead " style="text-align: center;">
